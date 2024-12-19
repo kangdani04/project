@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        @font-face {
+            font-family: 'BoldFont';
+            src: url('fonts/Pretendard-Bold.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'MediumFont';
+            src: url('fonts/Pretendard-Medium.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'RegularFont';
+            src: url('fonts/Pretendard-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'MediumFont';
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+            box-sizing: border-box;
+        }
+
+        .navbar-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white; /* 하얀색 배경 */
+            z-index: 1000; /* header와 구분되도록 높은 z-index 설정 */
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 살짝 그림자 추가 */
+        }
+
+        header {
+            position: relative; /* absolute에서 relative로 변경 */
+            top: 40px;
+            width: 100%;
+            background-color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1; 
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 10px 20px;
+        }
+
+        .navbar .logo {
+            width: 150px;
+            height: auto;
+            margin-right: auto;
+            cursor: pointer;
+        }
+
+        .navbar .menu-links {
+            display: flex;
+            gap: 30px;
+            margin-left: auto;
+            padding-right: 20px;
+        }
+        
+        .navbar a.home {
+            font-family: 'MediumFont', sans-serif;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .navbar a.home img {
+            width: 20px;
+            height: auto;
+            margin-right: 8px;
+        }
+
+        .navbar a.login {
+            font-family: 'MediumFont', sans-serif;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-blue {
+            position: relative;
+            top: 40px;
+            width: 100%;
+            background-color: rgb(20, 6, 225);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            z-index: 9;
+            margin-bottom: 0;
+        }
+
+        .navbar-blue .menu-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar-blue .menu-links .btn {
+            font-family: 'MediumFont', sans-serif;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-blue .menu-links .btn:hover {
+            color: yellow;
+        }
+
+        content {
+            margin-top: 120px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .content h3 {
+            font-family: "BoldFont", sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            color: black;
+            padding-top: 100px;
+            margin-bottom: 50px;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            margin-right: 30px;
+            font-size: 15px;
+            color:#1e90ff;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ccc; /* 회색 테두리 */
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        input[type="radio"]:checked::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background-color: #1e90ff; /* 파란색 원 */
+            border-radius: 50%;
+        }
+
+        /* 체크되지 않은 상태 */
+        input[type="radio"]::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background-color: #ccc; /* 흰색 원 */
+            border-radius: 50%;
+        }
+
+        .login-form {
+            width: 380px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            width: 80px;
+            margin-right: 10px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .form-group input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: calc(100% - 90px);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .form-buttons button {
+            flex-grow: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: "MediumFont", sans-serif;
+        }
+
+        #login-btn {
+            background-color: #1e90ff;
+            border: 1px solid #1e90ff;
+            color: white;
+        }
+
+        #signup-btn {
+            background-color: white;
+            border: 1px solid #1e90ff;
+            color:#1e90ff;
+        }
+
+        #login-btn:hover {
+            background-color: #125aa2
+        }
+
+        input::placeholder {
+            font-family: 'RegualrFont', sans-serif;
+            font-size: 11px;
+            color: #888;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 최상단 navbar -->
+    <div class="navbar-top">
+        <!-- 아무 내용 없음 -->
+    </div>
+
+    <header>
+        <div class="navbar">
+            <img src="image/logo_system.png" alt="로고" class="logo" />
+            <div class="menu-links">
+                <a href="main.html" class="home">
+                    <img src="image/icon_home.svg" alt="홈 아이콘"/>홈
+                </a>
+                <a href="login.html" class="login">로그인</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 파란색 navbar -->
+    <div class="navbar-blue">
+        <div class="menu-links">
+            <a href="#" class="btn">검사소개</a>
+            <a href="#" class="btn">사용방법</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <h3>로그인</h3>
+
+        <!-- 라디오 버튼 -->
+        <div class="radio-group">
+            <label><input type="radio" name="role" value="teacher" checked> 교원</label>
+            <label><input type="radio" name="role" value="school-admin"> 학교관리자</label>
+            <label><input type="radio" name="role" value="education-support"> 교육지원청</label>
+            <label><input type="radio" name="role" value="education-office"> 교육청</label>
+        </div>
+
+        <!-- 로그인 폼 -->
+        <div class="login-form">
+            <div class="form-group">
+                <label for="username">아이디</label>
+                <input type="text" id="username" placeholder="아이디">
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" placeholder="비밀번호">
+            </div>
+            <div class="form-buttons">
+                <!-- 버튼 클릭 시 동작 없음 -->
+                <button id="login-btn" onclick="return false;">로그인</button>
+                <button id="signup-btn" onclick="return false;">회원가입</button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

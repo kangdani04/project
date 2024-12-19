@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+        @font-face {
+            font-family: 'BoldFont';
+            src: url('fonts/Pretendard-Bold.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'MediumFont';
+            src: url('fonts/Pretendard-Medium.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'RegularFont';
+            src: url('fonts/Pretendard-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'MediumFont';
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+            box-sizing: border-box;
+        }
+
+        .navbar-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1000; /* header와 구분되도록 높은 z-index 설정 */
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 살짝 그림자 추가 */
+        }
+
+        header {
+            position: relative;
+            top: 40px;
+            width: 100%;
+            background-color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1; 
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 10px 20px;
+        }
+
+        .navbar .logo {
+            width: 150px;
+            height: auto;
+            margin-right: auto;
+            cursor: pointer;
+        }
+
+        .navbar .menu-links {
+            display: flex;
+            gap: 30px;
+            margin-left: auto;
+            padding-right: 20px;
+        }
+        
+        .navbar a.home {
+            font-family: 'MediumFont', sans-serif;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .navbar a.home img {
+            width: 20px;
+            height: auto;
+            margin-right: 8px;
+        }
+
+        .navbar a.login {
+            font-family: 'MediumFont', sans-serif;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-blue {
+            position: relative;
+            top: 40px;
+            width: 100%;
+            background-color: rgb(20, 6, 225);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            z-index: 9;
+            margin-bottom: 0;
+        }
+
+        .navbar-blue .menu-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar-blue .menu-links .btn {
+            font-family: 'MediumFont', sans-serif;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-blue .menu-links .btn:hover {
+            color: yellow;
+        }
+
+        .blue-background {
+            background-color: #1e90ff;
+            display: flex;
+            position: relative;
+            height: 480px;
+        }
+
+        .main-logo-text {
+            position: absolute;
+            left: 20vw;
+            top: 19vh;
+            font-size: 1.3vw;
+            font-family: 'BoldFont', sans-serif;
+            color: white;
+            z-index: 5;
+        }
+
+        .main-logo-image1{
+            position: absolute;
+            left: 20vw;
+            top: 25vh;
+            width: 30vw;
+            height: auto;
+            object-fit: cover;
+            z-index: 5;
+        }
+
+        .main-image {
+            position: absolute;
+            left: 43%;
+            top: 40%;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .content {
+            font-family: 'BoldFont', sans-serif;
+            text-align: center;
+            padding: 70px 0;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            z-index: 5;
+            margin-top: 0;
+        }
+
+        .image-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            border-radius: 50%;
+            border: 6px solid rgb(223, 222, 222);
+            padding: 15px;
+            width: 150px;
+            height: 150px;
+            justify-content: space-evenly;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            gap: 10px;
+        }
+
+        .image-button img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .image-button:nth-child(1) {
+            background-color: #60acf8; /* 학생용 */
+        }
+
+        .image-button:nth-child(2) {
+            background-color: rgb(64, 54, 210); /* 교사용 */
+        }
+
+        .image-button:nth-child(3) {
+            background-color: #1e90ff; /* 교육청용 */
+        }
+
+        .image-button:hover {
+            border-color: yellow;
+        }
+
+        .image-button span {
+            margin-top: 10px;
+            color: rgb(20, 6, 225);
+            font-weight: bold;
+            font-size: 16px;
+            position: absolute;
+            bottom: -40px;
+            text-align: center;
+        }
+
+        .background-image {
+            padding-top: 0px;
+            background-image: url('image/bg_bubble_pc.png'); 
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            width: 100%;
+            height: 700px; 
+            z-index: 0; /* 배경 이미지가 가장 뒤에 */
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 60px;
+            width: 90%;
+            height: auto;
+            max-width: 90%;
+            background-color: white;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .filter-section {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        #categorySelect {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #1e90ff;
+            border-radius: 5px;
+            width: 150px;
+            height: 50px;
+            font-family: 'RegularFont', sans-serif;
+        }
+
+        .search-section {
+            display: flex;
+            gap: 0;
+            font-family: 'RegularFont', sans-serif;
+        }
+
+        #searchInput {
+            padding: 10px;
+            font-size: 14px;
+            width: 300px;
+            height: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-family: 'RegularFont', sans-serif;
+        }
+
+        #searchButton {
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            font-size: 14px;
+            border: 1px solid #1e90ff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-family: 'RegularFont', sans-serif;
+        }
+
+        #searchButton:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-family: 'RegularFont', sans-serif;
+            font-size: 14px;
+        }
+
+        thead th {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        tr {
+            border: none; /* 세로줄 제거 */
+        }
+
+        tbody td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        tbody td:nth-child(2) {
+            text-align: left; /* 제목 열만 왼쪽 정렬 */
+        }
+
+        th:nth-child(1), td:nth-child(1) {
+            width: 120px;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        #closeNoticeButton, #closeManualButton, #closeNoticeDetailButton, #closeManualDetailButton {
+            display: block;
+            width: 80px;
+            padding: 15px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            margin: 40px auto 0 auto;
+            cursor: pointer;
+            text-align: center;
+            font-family: 'RegularFont', sans-serif;
+        }
+
+        #closeNoticeButton:hover, #closeManualButton:hover, #closeNoticeDetailButton:hover, #closeManualDetailButton:hover {
+            background-color: black;
+            color: white;  
+            border: none;
+        }
+
+        .modalDetail {
+            display: none;
+            position: fixed;
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-detail-content {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            width: 70%;
+            height: auto;
+            max-width: 70%;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        .modal-detail-content h2 {
+            margin-top: 0;
+        }
+
+        #noticeDetailContent, #manualDetailContent {
+            font-family: "RegularFont", sans-serif;
+        }
+
+        .articles-container {
+            display: flex;
+            position: absolute;
+            justify-content: center;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            gap: 0px; 
+            z-index: 10;
+        }
+
+        article {
+            background-color: transparent;
+            color: black;
+            padding: 20px 30px;
+            border: 0.1px solid #d3d1d1;
+            border-radius: 8px;
+            flex: 1;
+            width: 35%;
+            height: 20%;
+            max-width: 600px;
+            box-sizing: border-box;
+            margin-top: -150px;
+            margin-bottom: 20px;
+        }
+
+        #notice-article {
+            margin-left: 40px;
+            margin-right: 10px;
+        }
+
+        #notice-article h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+            font-family: 'RegularFont', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #notice-article ul, #manual-article ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        #notice-article li, #manual-article li {
+            font-size: 0.8em;
+            margin-bottom: 10px;
+            color: #333;
+            font-family: 'RegularFont', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        /* 점이 안보여서 수동 설정 */
+        #notice-article li::before, #manual-article li::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 3px; 
+            border-radius: 50%;
+            background-color: #333;
+        }
+
+        /* article hover 효과 */
+        #notice-article li:hover, #manual-article li:hover {
+            font-weight: bold;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .notice-title {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .notice-date {
+            font-size: 0.4em;
+            color: #888;
+        }
+
+        #manual-article {
+            margin-left: 10px;
+            margin-right: 40px;
+        }
+
+        #manual-article h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+            font-family: 'RegularFont', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notice-more-btn, .manual-more-btn {
+            font-size: 0.7em;
+            color: #1e90ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .notice-more-btn:hover, .manual-more-btn:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        #manual-article li {
+            gap: 15px; 
+        }
+
+        .manual-image {
+            width: 20px; 
+            height: 20px;
+            object-fit: contain;
+            border-radius: 5px; 
+        }
+
+        .manual-title {
+            font-weight: bold;
+            flex-grow: 1; 
+        }
+
+        .manual-date {
+            font-size: 0.4em;
+            color: #888;
+        }
+
+        .page-btn {
+            font-weight: normal;
+            text-decoration: none;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        /* hover 효과 */
+        .page-btn:hover {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        #page-btn-1 {
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 최상단 navbar -->
+    <div class="navbar-top">
+        <!-- 아무 내용 없음-->
+    </div>
+
+    <header>
+        <div class="navbar">
+            <img src="image/logo_system.png" alt="로고" class="logo" />
+            <div class="menu-links">
+                <a href="main.html" class="home">
+                    <img src="image/icon_home.svg" alt="홈 아이콘"/>홈
+                </a>
+                <a href="login.html" class="login">로그인</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 파란색 navbar -->
+    <div class="navbar-blue">
+        <div class="menu-links">
+            <a href="#" class="btn">검사소개</a>
+            <a href="#" class="btn">사용방법</a>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+
+        <div class="blue-background">
+            <div class="main-logo-text">학교장애인식지수 온라인검사시스템</div>
+            <img src="image/logo_title.png" alt="메인 로고1" class="main-logo-image1">
+            <img src="image/bg_main.png" alt="메인 이미지" class="main-image">
+        </div>
+
+        <div class="content">
+            <h2>학교장애인식 검사</h2>
+        </div>
+
+        <div class="image-container">
+            <div class="image-button">
+                <img src="image/icon_pencil.svg" alt="학생용">
+                <span>학생용</span>
+            </div>
+            <div class="image-button">
+                <img src="image/icon_book.svg" alt="교사용">
+                <span>교사용</span>
+            </div>
+            <div class="image-button">
+                <img src="image/icon_school.svg" alt="교육청용">
+                <span>교육청용</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="background-image">
+        <!-- 공지사항과 메뉴얼 영역 -->
+        <div class="articles-container">
+            <!-- 공지사항 Article -->
+            <article id="notice-article">
+                <h3>공지사항
+                    <a href="#" id="notice-more-btn" class="notice-more-btn">더보기 ></a>
+                </h3>
+                <ul>
+                    <li>
+                        <span class="notice-title">텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트</span>
+                        <span class="notice-date">2024.12.06</span>
+                    </li>
+                    <li>
+                        <span class="notice-title">텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트</span>
+                        <span class="notice-date">2024.12.06</span>
+                    </li>
+                    <li>
+                        <span class="notice-title">텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트</span>
+                        <span class="notice-date">2024.12.06</span>
+                    </li>
+                    <li>
+                        <span class="notice-title">텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트</span>
+                        <span class="notice-date">2024.12.06</span>
+                    </li>
+                    <li>
+                        <span class="notice-title">텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트</span>
+                        <span class="notice-date">2024.12.06</span>
+                    </li>
+                </ul>
+            </article>
+    
+            <article id="manual-article">
+                <h3>매뉴얼
+                    <a href="#" id="manual-more-btn" class="manual-more-btn">더보기 ></a>
+                </h3>
+                <ul>
+                    <li>
+                        <img src="image/icon_video.svg" alt="매뉴얼 이미지" class="manual-image">
+                        <span class="manual-title">학생용 매뉴얼</span>
+                        <span class="manual-date">2024.12.06</span>
+                    </li>
+                    <li>
+                        <img src="image/icon_video.svg" alt="매뉴얼 이미지" class="manual-image">
+                        <span class="manual-title">교사용 매뉴얼</span>
+                        <span class="manual-date">2024.12.06</span>
+                    </li>
+                    <li>
+                        <img src="image/icon_video.svg" alt="매뉴얼 이미지" class="manual-image">
+                        <span class="manual-title">교육청용 매뉴얼</span>
+                        <span class="manual-date">2024.12.06</span>
+                    </li>
+                </ul>
+            </article>
+        </div>
+    </div>
+
+    <!--공지사항 모달창 -->
+    <div id="noticeModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">공지사항</h2>
+            
+            <!-- 선택박스와 검색창 -->
+            <div class="filter-section">
+                <select id="categorySelect">
+                    <option value="all">전체</option>
+                    <option value="category1">제목</option>                    
+                    <option value="category2">ID</option>
+                    <option value="category3">작성자</option>
+                </select>
+                
+                <!-- 검색창과 검색 버튼 -->
+                <div class="search-section">
+                    <input type="text" id="searchInput" placeholder="검색...">
+                    <button id="searchButton">검색</button>
+                </div>
+            </div>
+
+            <!-- 게시판 표 -->
+            <table id="notice-boardTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 표 내용 JS로 -->
+                </tbody>
+            </table>
+
+            <!-- 페이지네이션 효과 -->
+            <div id="pagination" style="text-align: center; margin-top: 20px;">
+                <button class="page-btn" style="margin: 0 5px;">&lt;&lt;</button>
+                <button class="page-btn" style="margin: 0 5px;">&lt;</button>
+                <button class="page-btn" id="page-btn-1" style="margin: 0 5px; font-weight: bold;">1</button>
+                <button class="page-btn" id="page-btn-2" style="margin: 0 5px;">2</button>
+                <button class="page-btn" id="page-btn-3" style="margin: 0 5px;">3</button>
+                <button class="page-btn" id="page-btn-4" style="margin: 0 5px;">4</button>
+                <button class="page-btn" id="page-btn-5" style="margin: 0 5px;">5</button>
+                <button class="page-btn" style="margin: 0 5px;">&gt;</button>
+                <button class="page-btn" style="margin: 0 5px;">&gt;&gt;</button>
+            </div>
+
+            <!-- 닫기 버튼 -->
+            <button id="closeNoticeButton">닫기</button>
+        </div>
+    </div>
+
+    <!--매뉴얼 모달창-->
+    <div id="manualModal" class="modal">
+        <div class="modal-content">
+            <h2 id="manualTitle">매뉴얼</h2>
+            
+            <!-- 선택박스와 검색창 -->
+            <div class="filter-section">
+                <select id="categorySelect">
+                    <option value="all">전체</option>
+                    <option value="category1">제목</option>                    
+                    <option value="category2">ID</option>
+                    <option value="category3">작성자</option>
+                </select>
+                
+                <!-- 검색창과 검색 버튼 -->
+                <div class="search-section">
+                    <input type="text" id="searchInput" placeholder="검색...">
+                    <button id="searchButton">검색</button>
+                </div>
+            </div>
+
+            <!-- 게시판 표 -->
+            <table id="manual-boardTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 표 내용 JS로 -->
+                </tbody>
+            </table>
+
+            <!-- 페이지네이션 효과 -->
+            <div id="pagination" style="text-align: center; margin-top: 20px;">
+                <button class="page-btn" style="margin: 0 5px;">&lt;&lt;</button>
+                <button class="page-btn" style="margin: 0 5px;">&lt;</button>
+                <button class="page-btn" id="page-btn-1" style="margin: 0 5px; font-weight: bold;">1</button>
+                <button class="page-btn" id="page-btn-2" style="margin: 0 5px;">2</button>
+                <button class="page-btn" id="page-btn-3" style="margin: 0 5px;">3</button>
+                <button class="page-btn" id="page-btn-4" style="margin: 0 5px;">4</button>
+                <button class="page-btn" id="page-btn-5" style="margin: 0 5px;">5</button>
+                <button class="page-btn" style="margin: 0 5px;">&gt;</button>
+                <button class="page-btn" style="margin: 0 5px;">&gt;&gt;</button>
+            </div>
+
+            <!-- 닫기 버튼 -->
+            <button id="closeManualButton">닫기</button>
+        </div>
+
+    </div>
+
+    <!-- 공지사항 디테일 모달창 -->
+    <div id="noticeDetailModal" class="modalDetail">
+        <div class="modal-detail-content">
+            <h2 id="noticeDetailTitle">공지사항 제목</h2>
+            <hr>
+            <div id="noticeDetailContent">
+                <p>공지사항 내용이 여기에 들어갑니다.</p>
+            </div>
+            <hr>
+            <button id="closeNoticeDetailButton">닫기</button>
+        </div>
+    </div>
+
+    <!-- 매뉴얼 디테일 모달창 -->
+    <div id="manualDetailModal" class="modalDetail">
+        <div class="modal-detail-content">
+            <h2 id="manualDetailTitle">매뉴얼 제목</h2>
+            <hr>
+            <div id="manualDetailContent">
+                <p>매뉴얼 내용이 여기에 들어갑니다.</p>
+            </div>
+            <hr>
+            <button id="closeManualDetailButton">닫기</button>
+        </div>
+    </div>
+
+    <script>
+        // 공지사항 모달창
+        var noticeModal = document.getElementById("noticeModal");
+        var noticeBtn = document.getElementById("notice-more-btn");
+        var closeNoticeButton = document.getElementById("closeNoticeButton");
+
+        // 공지사항 디테일 모달창
+        var noticeDetailModal = document.getElementById("noticeDetailModal");
+        var closeNoticeDetailButton = document.getElementById("closeNoticeDetailButton");
+    
+        noticeBtn.onclick = function() {
+            noticeModal.style.display = "block";
+        }
+    
+        closeNoticeButton.onclick = function() {
+            noticeModal.style.display = "none";
+        }
+        
+        closeNoticeDetailButton.onclick = function() {
+            noticeDetailModal.style.display = "none";
+        }
+
+        // 매뉴얼 모달창
+        var manualModal = document.getElementById("manualModal");
+        var manualBtn = document.getElementById("manual-more-btn");
+        var closeManualButton = document.getElementById("closeManualButton"); 
+
+        // 매뉴얼 디테일 모달창
+        var manualDetailModal = document.getElementById("manualDetailModal");
+        var closeManualDetailButton = document.getElementById("closeManualDetailButton");
+    
+        manualBtn.onclick = function() {
+            manualModal.style.display = "block";
+        }
+    
+        closeManualButton.onclick = function() {
+            manualModal.style.display = "none";
+        }
+
+        // 매뉴얼 상세 모달 닫기
+        closeManualDetailButton.onclick = function() {
+            manualDetailModal.style.display = "none";
+        }
+    
+        // 게시글 데이터
+        const noticePosts = [
+            { id: "2022E0001", title: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", author: "관리자", date: "2024.12.06", views: 100 },
+            { id: "2022E0001", title: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", author: "관리자", date: "2024.12.06", views: 100 },
+            { id: "2022E0001", title: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", author: "관리자", date: "2024.12.06", views: 100 },
+            { id: "2022E0001", title: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", author: "관리자", date: "2024.12.06", views: 100 },
+            { id: "2022E0001", title: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", author: "관리자", date: "2024.12.06", views: 100 },
+        ];
+    
+        const noticeTableBody = document.querySelector("#notice-boardTable tbody");
+    
+        noticePosts.forEach(noticePost => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${noticePost.id}</td>
+                <td>${noticePost.title}</td>
+                <td>${noticePost.author}</td>
+                <td>${noticePost.date}</td>
+                <td>${noticePost.views}</td>
+            `;
+            tr.addEventListener("click", function() {
+                console.log("클릭 이벤트 실행됨")
+                // 공지사항 클릭 시 모달 내용 업데이트
+                document.getElementById("noticeDetailTitle").textContent = noticePost.title;
+
+                const Array = [
+                    "안녕하세요.",
+                    "",
+                    "학교장애인식지수 검사 파일럿 테스트 안내입니다.",
+                    "",
+                    "1. 파일럿 테스트 기간",
+                    "<li>신천고등학교: 7.9(화) ~ 7.12(금),</li>",
+                    "<li>학생/교원 대상</li>",
+                    "2. 사용자 매뉴얼 홈페이지 메인 화면에서 사용자별(학생, 교원, 학교관리자) 동영상 매뉴얼을 확인할 수 있습니다.",
+                    "작성일: " + noticePost.date + " | " + "조회수: " + noticePost.views
+                ];
+                let longContent = "";
+                Array.forEach(item => {
+                    longContent += `<p>${item}</p>`; 
+                });
+                document.getElementById("noticeDetailContent").innerHTML = longContent;
+
+                // 모달 열기
+                noticeDetailModal.style.display = "block";
+            });
+            noticeTableBody.appendChild(tr);
+        });
+
+        // 페이지네이션 버튼에 클릭 이벤트 추가 (기능 없음)
+        const pageButtons = document.querySelectorAll(".page-btn");
+        pageButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                // 페이지가 넘어가지 않도록 이벤트 처리만
+                console.log("페이지 이동이 필요 없음");
+            });
+        });
+    
+        const manualPosts = [
+            { id: "2022E0001", title: "학생용 매뉴얼", author: "관리자", date: "2024.12.06", views: 100 },
+            { id: "2022E0001", title: "교사용 매뉴얼", author: "관리자", date: "2024.12.06", views: 100 },
+            { id: "2022E0001", title: "교육청용 매뉴얼", author: "관리자", date: "2024.12.06", views: 100 },
+        ];
+    
+        // 게시글 표에 데이터 추가
+        const manualTableBody = document.querySelector("#manual-boardTable tbody");
+    
+        manualPosts.forEach(manualPost => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${manualPost.id}</td>
+                <td>${manualPost.title}</td>
+                <td>${manualPost.author}</td>
+                <td>${manualPost.date}</td>
+                <td>${manualPost.views}</td>
+            `;
+            tr.addEventListener("click", function() {
+                // 매뉴얼 클릭 시 모달 내용 업데이트
+                document.getElementById("manualDetailTitle").textContent = manualPost.title;
+                document.getElementById("manualDetailContent").textContent = "게시글 상세 내용: " + manualPost.title;
+
+                // 모달 열기
+                manualDetailModal.style.display = "block";
+            });
+            manualTableBody.appendChild(tr);
+        });
+    
+        // 윈도우 클릭 이벤트에서 두 모달 모두 처리
+        window.onclick = function(event) {
+            if (event.target == noticeModal) {
+                noticeModal.style.display = "none";
+            }
+            if (event.target == manualModal) {
+                manualModal.style.display = "none";
+            }
+            if (event.target == noticeDetailModal) {
+                noticeDetailModal.style.display = "none";
+            }
+            if (event.target == manualDetailModal) {
+                manualDetailModal.style.display = "none";
+            }
+        }
+
+    </script>
+    
+</body>
+</html>
